@@ -1,0 +1,95 @@
+.ad-text {
+  max-width: 300px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.newsletter-signup {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.legoland-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+/* footer element for the signup section */
+.footer {
+  background-color: rgb(51, 142, 199);
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: rgb(51, 142, 199);
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.legoland {
+  width: 500px;
+}
+
+.customer-survey {
+  text-align: center;
+}
+
+/* 7) Inheritance of <p> and location Cascade Principle */
+/* p1 is read first but since p2 is read last it wins */
+p {
+  color: red;
+  font-size: 440px;
+}
+
+p {
+  color: blue;
+  font-size: 20px;
+}
+
+/* 8) positioning stuff */
+.darth-revan-photo {
+  position: relative;
+}
+
+.jay-dx-photo {
+  position: fixed;
+  bottom: 630px;
+  right: 1700px;
+  transform: rotate(130deg);
+  width: 300px;
+}
+
+.falcon-photo {
+  position: absolute;
+  margin-left: 1350px;
+  bottom: 30px;
+  width: 600px;
+}
+
+/* 9) Floating and clear elements */
+/* 10) Thumbnail and hover effects */
+.superman-photo {
+  float: left;
+  width: 200px;
+  clear: left;
+}
+
+figcaption.popup {
+  clear: left;
+  box-shadow: 0 0 15px #A9A9A9;
+  visibility: hidden;
+}
+
+figure.ole-container:hover figcaption.popup {
+  visibility: visible;
+}
+
+
