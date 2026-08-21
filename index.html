@@ -1,8 +1,10 @@
 <html>
   <head>
-    <title>Assignment 1</title>
+    <title>Assignment 2</title>
     <!--6) External CSS reference-->
     <link rel="stylesheet" href="styles.css">
+    <!--External JS reference-->
+    <script src="scripts.js" defer></script>
 
     <!--Embedded CSS-->
     <Style>
@@ -155,6 +157,20 @@
         <p>Email: <input type="email" placeholder="Enter your email"></p>
         <input type="button" value="Submit">
     </div>  
+
+    <!--HTML element video and buttons to edit video-->
+    <div class="superman-video">
+      <video autoplay loop id="superman-video">
+        <source src="videos/superman.mp4" type="video/mp4">
+      </video>
+      <div class="buttons">
+        <button onclick="PlayPause()">Play or Pause</button>
+        <button onClick="Big()">Make bigger</button>
+        <button onClick="Small()">Make smaller</button>
+        <button onClick="Normal()">Make normal size</button>        
+      </div>
+
+    </div>
 </footer>
 
 

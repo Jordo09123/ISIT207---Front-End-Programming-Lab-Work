@@ -92,4 +92,13 @@ figure.ole-container:hover figcaption.popup {
   visibility: visible;
 }
 
+footer .superman-video video {
+  text-align: center;
+  width: 200px;
+  height: 200px;
+}
 
+footer .superman-video .buttons {
+  text-align: center;
+  margin-top: 10px;
+}
