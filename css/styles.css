@@ -15,6 +15,12 @@
   justify-content: center;
 } 
 
+.ninjago-intro-video {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 /* footer element for the signup section */
 .footer {
   background-color: rgb(51, 142, 199);
@@ -57,6 +63,11 @@ p {
 /* 8) positioning stuff */
 .darth-revan-photo {
   position: relative;
+  transition: transform 0.7s ease-in-out;
+}
+
+.darth-revan-photo:hover {
+  transform: rotate(360deg);
 }
 
 .jay-dx-photo {
@@ -101,4 +112,24 @@ footer .superman-video video {
 footer .superman-video .buttons {
   text-align: center;
   margin-top: 10px;
+}
+
+.extra {
+  display: none;
+}
+
+.extra.expanded {
+  display: block;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.success-message {
+  color: green;
+  font-size: 14px;
+  margin-top: 5px;
 }

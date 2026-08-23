@@ -87,6 +87,14 @@
       </div>
     </div>
 
+    <div class="ninjago-intro-video">
+      <figure>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/fOzcyJgNr5U?si=_3Enzwp9FgkHPF13" title="YouTube video player" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <figcaption>Figure 3: Ninjago Intro Video</figcaption>
+      </figure>
+    </div>
+
     <!--4) select lists, radio buttons, checkboxes-->
     <img src="images/darth-revan.jpg" class="darth-revan-photo"> 
     <img src="images/jay-dx.jpg" class="jay-dx-photo">   
@@ -128,34 +136,63 @@
       <p>Lego was founded in 1932 by Ole Kirk Christiansen, a Danish carpenter, who initially made wooden toys.</p>
       <figure class="superman-container">
         <img src="images/superman.png" class="superman-photo">
-      </figure>      
-      <p>The company's name comes from the Danish phrase "leg godt," which means "play well."</p>
-      <p>In 1958, the company began producing plastic bricks, which became the foundation of the modern Lego system.</p>
-      <p>In the 1960s, Lego expanded internationally and began producing sets based on popular themes such as space, pirates, and castles.</p>
-      <p>In the 1970s, Lego introduced the minifigure, which became a staple of the Lego system.</p>
-
-      <figure class="ole-container">
-      <img src="images/Ole.jpg">
-        <figcaption class="popup">        
-          Figure 3, Ole Kirk Christiansen, founder of Lego
-        </figcaption>
-
       </figure>
-      <p>In the 1980s, Lego faced financial difficulties due to increased competition from other toy companies and a decline in sales.</p>
-      <p>However, the company rebounded in the 1990s with the introduction of new themes such as Lego Technic and Lego Mindstorms.</p>
-      <p>In the 2000s, Lego continued to expand its product line and introduced new themes such as Lego Star Wars and Lego Harry Potter.</p>
-      <p>The company also began producing video games and movies based on its popular themes.</p>
-      <p>Today, Lego is one of the most popular toy brands in the world, with a wide range of products and a strong presence in the entertainment industry.</p>
+
+      <div class="extra">
+        <p>The company's name comes from the Danish phrase "leg godt," which means "play well."</p>
+        <p>In 1958, the company began producing plastic bricks, which became the foundation of the modern Lego system.</p>
+        <p>In the 1960s, Lego expanded internationally and began producing sets based on popular themes such as space, pirates, and castles.</p>
+        <p>In the 1970s, Lego introduced the minifigure, which became a staple of the Lego system.</p>
+
+        <figure class="ole-container">
+        <img src="images/Ole.jpg">
+          <figcaption class="popup">        
+            Figure 4: Ole Kirk Christiansen, founder of Lego
+          </figcaption>
+
+        </figure>
+        <p>In the 1980s, Lego faced financial difficulties due to increased competition from other toy companies and a decline in sales.</p>
+        <p>However, the company rebounded in the 1990s with the introduction of new themes such as Lego Technic and Lego Mindstorms.</p>
+        <p>In the 2000s, Lego continued to expand its product line and introduced new themes such as Lego Star Wars and Lego Harry Potter.</p>
+        <p>The company also began producing video games and movies based on its popular themes.</p>
+        <p>Today, Lego is one of the most popular toy brands in the world, with a wide range of products and a strong presence in the entertainment industry.</p>        
+      </div>      
+      <!--Button to display a read more option and see the rest of the content-->
+      <button id="read-more-button">Read More</button>
     </article>
+
+  <!--random fact generator-->
+  <div class="random-fact">
+    <h2>Lego Fun Facts</h2>
+    <p id="fact-text">Click the button to generate a random Lego fact!</p>
+    <button id="fact-button">Show me a Fact</button>
+  </div>
 
 
 <footer class="footer">
     <!--More input types, text and email-->
     <div class="newsletter-signup">
       <h2>Sign up for our newsletter!</h2>
-        <p>Name: <input type="text" placeholder="Enter your name"></p>
-        <p>Email: <input type="email" placeholder="Enter your email"></p>
-        <input type="button" value="Submit">
+      <form id="newsletter-form">
+        <p>
+          Name: <input type="text" placeholder="Enter your name" id="signup-name">
+          <br>
+          <span class="error-message" id="name-error"></span>
+        </p>
+
+        <p>Email: <input type="email" placeholder="Enter your email" id="signup-email">
+          <br>
+          <span class="error-message" id="email-error"></span>          
+        </p>
+
+        <p>
+          <input type="checkbox" id="signup-agreement"> I agree to receive newsletter emails
+          <br> 
+          <span class="error-message" id="agreement-error"></span>           
+        </p>
+        <input type="submit" value="Sign Up">
+        <p id="signup-success-text" class="success-message"></p>
+      </form>
     </div>  
 
     <!--HTML element video and buttons to edit video-->
@@ -168,6 +205,13 @@
         <button onClick="Big()">Make bigger</button>
         <button onClick="Small()">Make smaller</button>
         <button onClick="Normal()">Make normal size</button>        
+      </div>
+      <br>
+      <div class="sound">
+          <p>Listen to the Lego Building Sound Below!</p>        
+        <audio controls>
+          <source src="sounds/lego-building-sound.mp3" type="audio/ogg">
+        </audio>
       </div>
 
     </div>
