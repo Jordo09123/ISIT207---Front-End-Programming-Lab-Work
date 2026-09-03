@@ -28,9 +28,89 @@
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-
+      }   
     </Style>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script>
+      //jQuery seleectors
+      $(document).ready(function() { 
+        // all paragraph elements, makes text colour red
+        $('p').css('color', 'red');
+
+        // all elements with id of "read-more-button", makes bg color blue
+        $('#read-more-button').css('background-color', 'blue');
+
+        // all elements with class of "lego-ad", adds black border
+        $('.lego-ad').css('border', '2px solid black');
+
+        // all elements with class lego-logo or lego-ad, makes rounded edges
+        $('.lego-logo, .lego-ad').css('border-radius', '10px');
+
+        // all elements make the font family comic sans serif
+        $('*').css('font-family', 'Comic Sans MS, sans-serif');
+
+        // all h1, div and p elements, make text bold
+        $('h1, div, p').css('font-weight', 'bold');
+
+        // all first h1 elements, make background colour green
+        $('h1:first').css('background-color', 'green');
+
+        // all last div elements, make background colour yellow
+        $('div:last').css('background-color', 'yellow');
+
+        // all even paragraph elements, make background colour light blue
+        $('p:even').css('background-color', 'lightblue');
+
+        // all odd paragraph elements, make background colour light pink
+        $('p:odd').css('background-color', 'lightpink');
+
+        // coorodinate display using chained jquery 
+        $('.falcon-photo')
+          .on("mousemove", function(event) {
+            $('#falcon-message').html("Cursor at x = " + event.pageX + ", y = " + event.pageY); 
+          })
+          .on("mouseleave", function() {
+            $('#falcon-message').html("move your mouse over the function to see coordinates"); 
+          })
+          .on("click", function() {
+            $('#falcon-message').html("tracking stopped");
+            $('.falcon-photo').off("mousemove");
+          });
+
+        // lego logo click event to spin the logo
+        $('.lego-logo')
+          .on("click", function() {
+            $(this).toggleClass("logo-spin");
+          })
+          .css("cursor", "pointer");
+
+        // customer survey 
+        $(".customer-survey input[type='button']")
+          .on("click", function() {
+            const theme = $(".customer-survey select").val();
+            $("#survey-summary").text("Thank you for completing the survey! Your favourite theme is: " + theme).show();
+          })
+        
+        // ole image double click shows caption
+        $(".ole-container img")
+          .on("dblclick", function() {
+            $(this).siblings("figcaption").fadeToggle().css("font-weight", "bold");
+          })
+
+        // lego land hover event to change caption
+        $(".legoland")
+          .on("mouseenter", function () {
+            $(this).siblings("figcaption").text("Hello there!").css("background-color", "yellow");
+          })
+          .on("mouseleave", function () {
+            $(this).siblings("figcaption").text("Figure 2: LegoLand Billund, Denmark").css("background-color", "");
+          });
+
+          // --------------------------------------------
+          // effects animations 
+      });  
+    </script>
   </head>
 
 
@@ -59,6 +139,7 @@
 
 
     <img src="images/falcon.webp" class="falcon-photo">
+    <p id="falcon-message"></p>
     <div>
       <h1 style="text-align: center; font-size: 20px;">About LEGO</h1>
       <p style="text-align: center; font-size: 20px">Lego is a Danish toy company that creates plastic bricks and sets for children and adult to build</p>
@@ -128,6 +209,7 @@
       <input type="time"><br>
       <br>
       <input type="button" value="Submit Survey">
+      <p id="survey-summary" style="display:none;"></p>
     </div>
 
 

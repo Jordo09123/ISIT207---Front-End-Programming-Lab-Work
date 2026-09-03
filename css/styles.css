@@ -133,3 +133,16 @@ footer .superman-video .buttons {
   font-size: 14px;
   margin-top: 5px;
 }
+
+#falcon-message {
+  position: relative;
+  z-index: 10;
+  background: white;
+  padding: 4px 8px;
+  display: inline-block;
+}
+
+.logo-spin {
+  transform: rotate(180deg);
+  transition: transform 0.5s;
+}
