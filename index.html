@@ -109,6 +109,20 @@
 
           // --------------------------------------------
           // effects animations 
+
+          // toggle effect
+          $("#trivia-link").on("click", function(event){
+            event.preventDefault();
+            $("#trivia-text").toggle();
+          })
+
+          // animate effect
+          $("#fact-button").on("click", function(){
+            $("#fact-text").fadeOut(300, function() {
+              const randomIndex = Math.floor(Math.random() * legoFacts.length);
+              $(this).text(legoFacts[randomIndex]).fadeIn(300);
+            });
+          })
       });  
     </script>
   </head>
@@ -196,6 +210,8 @@
       <input type="checkbox">Low (Under $50)<br>
       <input type="checkbox">Mediumm ($50 - $100)<br>
       <input type="checkbox">High (Over $100)<br>
+      <p><a href="#" id="trivia-link">Did you know?</a></p>
+      <p id="trivia-text" style="display:none;">Ninjago is one of LEGO's best-selling themes of all time!</p>
       
       <p>Please select your age</p>
       <input type="radio" name="age-group" value="under-18">Under 18<br>

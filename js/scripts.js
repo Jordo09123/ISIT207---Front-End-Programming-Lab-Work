@@ -114,4 +114,3 @@ function showFact() {
     factText.textContent = legoFacts[randomIndex];
 }
 
-factButton.addEventListener('click', showFact);
