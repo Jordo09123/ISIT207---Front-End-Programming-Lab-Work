@@ -15,10 +15,49 @@
   justify-content: center;
 } 
 
-.ninjago-intro-video {
+.ninjago-video-section {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 24px auto;
+  padding: 20px;
+  max-width: 620px;
+  background-color: #f2f7fb;
+  border: 1px solid #c7dce8;
+  border-radius: 8px;
+}
+
+#video-toggle-btn {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 4px;
+  background-color: #2678a8;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#video-toggle-btn:hover {
+  background-color: #1b5d84;
+}
+
+.ninjago-intro-video {
+  width: 100%;
+}
+
+.ninjago-intro-video figure {
+  margin: 0;
+  text-align: center;
+}
+
+.ninjago-intro-video iframe {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin: 0 auto;
 }
 
 /* footer element for the signup section */

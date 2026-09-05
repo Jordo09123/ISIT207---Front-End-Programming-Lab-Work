@@ -124,7 +124,29 @@
             });
           })
 
-          // x effect
+          // toggle button for video
+          $("#video-toggle-btn").on("click", function() {
+            $(".ninjago-intro-video").slideToggle(500);
+          });
+
+          // toggle button for legoland details
+          $("#legoland-details-btn").on("click", function() {
+            if ($("#legoland-details").is(":visible")) {
+              $("#legoland-details").hide(500);
+              $(this).text("More About Legoland");
+            } else {
+              $("#legoland-details").show(1000);
+              $(this).text("Hide Details");
+            }
+          });
+
+          // animate superman photo
+          $(".superman-photo").on("click", function() {
+            $(this)
+              .animate({ width: "300px" }, 500)
+              .animate({ opacity: "0.6" }, 300)
+              .animate({ opacity: "1" }, 300);
+          });
       });  
     </script>
   </head>
@@ -176,7 +198,9 @@
       <div class="legoland-container">
       <figure> 
         <img src="images/legoland.jpg" class="legoland" alt="Legoland">
-        <figcaption>Figure 2: LegoLand Billund, Denmark</figcaption>     
+        <figcaption>Figure 2: LegoLand Billund, Denmark</figcaption>
+        <p id="legoland-details" style="display:none;">Legoland Billund opened in 1968 and covers over 45 acres.</p>
+        <button id="legoland-details-btn">More About Legoland</button>     
       </figure>
 
       <div class="ad-text">
@@ -184,17 +208,20 @@
       </div>
     </div>
 
-    <div class="ninjago-intro-video">
-      <figure>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/fOzcyJgNr5U?si=_3Enzwp9FgkHPF13" title="YouTube video player" frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <figcaption>Figure 3: Ninjago Intro Video</figcaption>
-      </figure>
-    </div>
+    <section class="ninjago-video-section">
+      <button id="video-toggle-btn" type="button">Hide or Open video</button>
+      <div class="ninjago-intro-video">
+        <figure>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/fOzcyJgNr5U?si=_3Enzwp9FgkHPF13" title="YouTube video player" frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <figcaption>Figure 3: Ninjago Intro Video</figcaption>
+        </figure>
+      </div>
+    </section>
 
     <!--4) select lists, radio buttons, checkboxes-->
     <img src="images/darth-revan.jpg" class="darth-revan-photo"> 
-    <img src="images/jay-dx.jpg" class="jay-dx-photo">   
+    <!-- <img src="images/jay-dx.jpg" class="jay-dx-photo"> -->  
     <div class="customer-survey">
       <h2>Customer Survey</h2>
       <p>What is your favourite LEGO theme?</p>
