@@ -1,0 +1,51 @@
+.lego-logo {
+    width: 100px;
+    height: 100px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body, input, button {
+    font-family: "Comic Sans MS", sans-serif;
+}
+
+.ui-widget {
+    font-family: inherit;
+}
+
+h1, h2, p {
+    font-weight: bold;
+}
+
+p {
+    color: red;
+}
+
+.bricktower {
+  display: inline-block;
+  width: 120px;
+  min-height: 200px;
+  padding: 4px;
+  border: 3px solid #333;
+  background: #f2f7fb;
+  cursor: pointer;
+}
+
+.bricktower-stack {
+  display: flex;
+  flex-direction: column-reverse;   /* first brick sits at the bottom */
+  min-height: 200px;
+}
+
+.brick {
+  height: 30px;
+  margin-top: 2px;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}

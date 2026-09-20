@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>LEGO Order Lab</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/jqueryui.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/bricktower.js" defer></script>
+    <script src="js/order.js" defer></script>
+    
+  </head>
+
+  <body>
+    <header class="header">
+      <h1 style="text-align: center"><img src="images/logo.jpg" class="lego-logo" alt="Lego Logo"></h1>
+
+      <table>
+        <tr>
+          <th colspan="4">Lego Information Bar</th>
+        </tr>
+        <tr>
+          <td><a href="index.html">Back to Home</a></td>
+          <td><a href="https://shorturl.at/4HKw1" target="_blank">Visit LEGO Website</a></td>
+          <td><a href="https://www.lego.com/en-au/themes" target="_blank">Explore LEGO Themes</a></td>
+          <td><a href="https://www.lego.com/en-au/service" target="_blank">Help and Support</a></td>
+        </tr>
+      </table>
+    </header>
+
+    <div class="customer-survey">
+      <h2>Order a LEGO Set</h2>
+
+      <!-- input fields for jQuery widgets-->
+      <p><label for="theme">Theme:</label> <input id="theme"></p>
+      <p><label for="delivery">Delivery date:</label> <input id="delivery"></p>
+    </div>
+
+    <div class="customer-survey">
+      <h2>Build Your Tower</h2>
+      <div id="tower"></div>
+      <p id="tower-message">Click the tower or a button to add bricks!</p>
+      <button id="add-brick">Add brick</button>
+      <button id="remove-brick">Remove brick</button>
+      <button id="clear-tower">Clear</button>
+    </div>
+
+    <footer class="footer">
+      <h2>Happy building!</h2>
+    </footer>
+  </body>
+</html>
