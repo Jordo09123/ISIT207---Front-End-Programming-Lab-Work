@@ -115,5 +115,32 @@ $(function () {
 
         buildSetChecked(theme).then(notifyCustomer).catch(notifyCustomer)       
     })
+
+// -------------------------------------------------------------
+
+    // assignment 5 task 2 rewrite using async/await
+
+    async function placeOrderAsync() {
+        var theme = $("#theme").val() || "Mystery";
+
+        var message = await buildSetPromise(theme);   
+        notifyCustomer(message);                     
+    }
+
+    $("#order-async-btn").on("click", placeOrderAsync);
+
+    // Same idea for the rejection version 
+    async function placeOrderCheckedAsync() {
+        var theme = $("#theme").val() || "Mystery";
+
+        try {
+            var message = await buildSetChecked(theme);   
+            notifyCustomer(message);                       
+        } catch (err) {
+            notifyCustomer(err);                          
+        }
+    }
+
+    $("#order-async-reject-btn").on("click", placeOrderCheckedAsync);
 });
 
