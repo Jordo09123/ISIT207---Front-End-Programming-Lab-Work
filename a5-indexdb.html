@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Developer Registry (IndexedDB)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, Arial, sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+  header { background: #24292f; color: #fff; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  header h1 { margin: 0; font-size: 1.4rem; }
+  header a { color: #9ecbff; }
+  main { max-width: 800px; margin: 0 auto; padding: 24px 16px; }
+  .panel { background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.15); margin-bottom: 24px; }
+  label { display: block; margin: 10px 0 4px; font-weight: bold; }
+  input { width: 100%; padding: 10px; font-size: 1rem; border: 1px solid #bbb; border-radius: 6px; }
+  button { padding: 10px 16px; font-size: 1rem; border: 0; border-radius: 6px; background: #2da44e; color: #fff; cursor: pointer; margin: 8px 8px 0 0; }
+  button.danger { background: #cf222e; }
+  button:hover { opacity: .9; }
+  #message { margin-top: 12px; min-height: 1.2em; font-weight: bold; }
+  .ok { color: #2da44e; }
+  .err { color: #cf222e; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; word-break: break-all; }
+  th { background: #eef1f4; }
+  .empty { color: #888; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Developer Registry (IndexedDB)</h1>
+  <a href="a5.html">Back to GitHub Finder</a>
+</header>
+
+<main>
+  <!-- 4a: three inputs + a button to start the input activity -->
+  <div class="panel">
+    <h2>Add a developer</h2>
+    <label for="devId">DeveloperID</label>
+    <input id="devId" type="text" placeholder="e.g. dev001">
+    <label for="devUrl">Home page URL</label>
+    <input id="devUrl" type="text" placeholder="https://example.com">
+    <label for="devLoc">Location</label>
+    <input id="devLoc" type="text" placeholder="e.g. Sydney">
+    <button id="addBtn">Add developer</button>
+    <div id="message"></div>
+  </div>
+
+  <!-- 4d, 4e, 4f: delete controls -->
+  <div class="panel">
+    <h2>Delete</h2>
+    <button id="delLastBtn" class="danger">Delete last entry</button>
+    <button id="delAllBtn" class="danger">Delete all data</button>
+    <label for="removeId">Remove by DeveloperID</label>
+    <input id="removeId" type="text" placeholder="DeveloperID to remove">
+    <button id="removeBtn" class="danger">Remove</button>
+  </div>
+
+  <!-- 4b: display stored data -->
+  <div class="panel">
+    <h2>Stored developers</h2>
+    <table>
+      <thead><tr><th>DeveloperID</th><th>Home page URL</th><th>Location</th></tr></thead>
+      <tbody id="list"></tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+/* =========================================================
+   Open the database  (slides 5-9)
+   ========================================================= */
+let db;
+
+if (!("indexedDB" in window)) {
+    console.log("IndexedDB is not supported");          // slide 4
+}
+
+let openRequest = indexedDB.open("DeveloperDB", 1);
+
+// runs when the database doesn't exist yet: create the object store (slide 13)
+openRequest.onupgradeneeded = function () {
+    db = openRequest.result;
+    if (!db.objectStoreNames.contains("developers")) {
+        // keyPath makes developerId the unique key, so duplicates are rejected (slide 12)
+        db.createObjectStore("developers", { keyPath: "developerId" });
+    }
+};
+
+openRequest.onerror = function () {
+    console.error("Error", openRequest.error);
+};
+
+openRequest.onsuccess = function () {
+    db = openRequest.result;
+    showAll();                                          // show anything already stored
+};
+
+/* =========================================================
+   Helpers
+   ========================================================= */
+function showMessage(text, isError) {
+    const m = document.getElementById("message");
+    m.textContent = text;
+    m.className = isError ? "err" : "ok";
+}
+
+function esc(value) {
+    const d = document.createElement("div");
+    d.textContent = String(value);
+    return d.innerHTML;
+}
+
+/* =========================================================
+   4b: display everything in the store  (slides 25-26)
+   getAll() returns the records sorted by key (slide 27)
+   ========================================================= */
+function showAll() {
+    let trans = db.transaction("developers");           // readonly by default
+    let developers = trans.objectStore("developers");
+    let request = developers.getAll();
+
+    request.onsuccess = function () {
+        const rows = request.result;
+        document.getElementById("list").innerHTML = rows.length
+            ? rows.map(r =>
+                `<tr><td>${esc(r.developerId)}</td><td>${esc(r.homepage)}</td><td>${esc(r.location)}</td></tr>`
+              ).join("")
+            : '<tr><td colspan="3" class="empty">No developers stored.</td></tr>';
+    };
+}
+
+/* =========================================================
+   4a, 4b, 4c, 4g: add a developer  (slides 16-18 and 22)
+   ========================================================= */
+function addDeveloper() {
+    const developerId = document.getElementById("devId").value.trim();
+    const homepage    = document.getElementById("devUrl").value.trim();
+    const location    = document.getElementById("devLoc").value.trim();
+
+    if (!developerId || !homepage || !location) {
+        showMessage("Please fill in all three fields.", true);
+        return;
+    }
+
+    // 4g: URL must start with HTTP:// or HTTPS://
+    if (!/^https?:\/\//i.test(homepage)) {
+        alert('Home page URL must start with "HTTP://" or "HTTPS://".');
+        return;
+    }
+
+    let trans = db.transaction("developers", "readwrite");       // (1)
+    let developers = trans.objectStore("developers");            // (2)
+    let developer = { developerId: developerId, homepage: homepage, location: location };
+    let request = developers.add(developer);                     // (3)
+
+    request.onsuccess = function () {                            // (4-A)
+        showMessage('Developer "' + developerId + '" added.', false);
+        document.getElementById("devId").value = "";
+        document.getElementById("devUrl").value = "";
+        document.getElementById("devLoc").value = "";
+    };
+
+    request.onerror = function (event) {                         // (4-B)
+        // 4c: ConstraintError means the DeveloperID already exists
+        if (request.error.name == "ConstraintError") {
+            showMessage('Error: DeveloperID "' + developerId + '" already exists.', true);
+            event.preventDefault();                              // don't abort the transaction
+        } else {
+            showMessage("Unexpected error: " + request.error, true);
+        }
+    };
+
+    trans.oncomplete = function () {                             // slide 20
+        showAll();
+    };
+}
+
+/* =========================================================
+   4d: delete the last entry  (cursor, slides 33-34)
+   "prev" walks from the biggest key down, so the first record
+   it returns is the last one shown in the list.
+   ========================================================= */
+function deleteLast() {
+    let trans = db.transaction("developers", "readwrite");
+    let developers = trans.objectStore("developers");
+    let request = developers.openCursor(null, "prev");
+    let deleted = null;
+
+    request.onsuccess = function () {
+        let cursor = request.result;
+        if (cursor) {
+            deleted = cursor.key;
+            cursor.delete();                                     // delete this record only
+        }
+    };
+
+    trans.oncomplete = function () {
+        if (deleted !== null) {
+            showMessage('Last entry "' + deleted + '" deleted.', false);
+        } else {
+            showMessage("Nothing to delete.", true);
+        }
+        showAll();
+    };
+}
+
+/* =========================================================
+   4e: delete all data
+   ========================================================= */
+function deleteAll() {
+    if (!confirm("Delete ALL developers?")) return;
+
+    let trans = db.transaction("developers", "readwrite");
+    trans.objectStore("developers").clear();
+
+    trans.oncomplete = function () {
+        showMessage("All data deleted.", false);
+        showAll();
+    };
+}
+
+/* =========================================================
+   4f: remove by DeveloperID  (slide 31: delete(query))
+   ========================================================= */
+function removeById() {
+    const id = document.getElementById("removeId").value.trim();
+    if (!id) {
+        showMessage("Enter a DeveloperID to remove.", true);
+        return;
+    }
+
+    let trans = db.transaction("developers", "readwrite");
+    let developers = trans.objectStore("developers");
+    let found = false;
+
+    // check it exists first, so we can report "not found"
+    let check = developers.getKey(id);
+    check.onsuccess = function () {
+        if (check.result !== undefined) {
+            found = true;
+            developers.delete(id);
+        }
+    };
+
+    trans.oncomplete = function () {
+        if (found) {
+            showMessage('Developer "' + id + '" removed.', false);
+            document.getElementById("removeId").value = "";
+        } else {
+            showMessage('No developer with ID "' + id + '".', true);
+        }
+        showAll();
+    };
+}
+
+/* =========================================================
+   Connect the buttons
+   ========================================================= */
+document.getElementById("addBtn").addEventListener("click", addDeveloper);
+document.getElementById("delLastBtn").addEventListener("click", deleteLast);
+document.getElementById("delAllBtn").addEventListener("click", deleteAll);
+document.getElementById("removeBtn").addEventListener("click", removeById);
+</script>
+</body>
+</html>
