@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/indexdb.css">
+        <script src="js/indexdb.js" defer></script>
+        <title>Developer Registry (IndexedDB)</title>
+
+    </head>
+
+    <body>
+        <header>
+            <h1>Developer Registry (IndexedDB)</h1>
+            <a href="a5.html">Back to GitHub Finder</a>
+        </header>
+
+        <main>
+
+            <!-- Task 4a: three inputs + a button to start the input -->
+            <div class="panel">
+                <h2>Add a developer</h2>
+                <label for="devId">DeveloperID</label>
+                <input id="devId" type="text">
+                <label for="devUrl">Home page URL</label>
+                <input id="devUrl" type="text" placeholder="https://example.com or http://example.com">
+                <label for="devLoc">Location</label>
+                <input id="devLoc" type="text">
+                <button id="addBtn">Add developer</button>
+                <div id="message"></div>
+            </div>
+
+            <!-- Tasks 4d, 4e, 4f: delete buttons -->
+            <div class="panel">
+                <h2>Delete</h2>
+                <button id="delLastBtn" class="danger">Delete last entry</button>
+                <button id="delAllBtn" class="danger">Delete all data</button>
+                <label for="removeId">Remove by DeveloperID</label>
+                <input id="removeId" type="text">
+                <button id="removeBtn" class="danger">Remove</button>
+            </div>
+
+            <!-- Task 4b: stored developers are shown here -->
+            <div class="panel">
+                <h2>Stored developers</h2>
+                <table>
+                <thead>
+                    <tr><th>DeveloperID</th><th>Home page URL</th><th>Location</th></tr>
+                </thead>
+                <tbody id="list"></tbody>
+                </table>
+            </div>
+        </main>
+    </body>
+</html>
