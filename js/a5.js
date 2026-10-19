@@ -46,9 +46,9 @@ function cardHTML(user) {
 }
 
 async function loadSix() {
-const picked = pickSix();
-const profiles = await Promise.all(picked.map(u => getUser(u.url)));
-document.getElementById("cards").innerHTML = profiles.map(cardHTML).join("");
+    const picked = pickSix();
+    const profiles = await Promise.all(picked.map(u => getUser(u.url)));
+    document.getElementById("cards").innerHTML = profiles.map(cardHTML).join("");
 }
 
 
